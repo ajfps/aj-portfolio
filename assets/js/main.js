@@ -26,53 +26,6 @@ function headerShadow() {
   }
 }
 
-const sr = ScrollReveal({
-  origin: "top",
-  distance: "80px",
-  duration: 2000,
-  reset: false,
-});
-
-sr.reveal(".featured-text-card", {});
-sr.reveal(".featured-name", { delay: 100 });
-sr.reveal(".featured-text-info", { delay: 200 });
-sr.reveal(".featured-text-btn", { delay: 200 });
-sr.reveal(".social_icons", { delay: 200 });
-sr.reveal(".featured-image", { delay: 300 });
-
-sr.reveal(".project-box", { interval: 200 });
-
-sr.reveal(".top-header", {});
-
-const srLeft = ScrollReveal({
-  origin: "left",
-  distance: "80px",
-  duration: 2000,
-  reset: false,
-});
-
-srLeft.reveal(".profile-card", { delay: 100 });
-srLeft.reveal(".contact-info", { delay: 100 });
-
-const srRight = ScrollReveal({
-  origin: "right",
-  distance: "80px",
-  duration: 2000,
-  reset: false,
-});
-
-srRight.reveal(".form-control", { delay: 100 });
-
-sr.reveal(".skills-card h3", { delay: 50 });
-sr.reveal(".skills-category h4", { interval: 100, delay: 150 });
-sr.reveal(".skill-item", {
-  interval: 30,
-  duration: 800,
-  easing: "ease-out",
-  reset: false,
-  viewFactor: 0.2,
-});
-
 const sections = document.querySelectorAll("section[id]");
 const navLinks = document.querySelectorAll(".nav-link");
 const navHeader = document.getElementById("header");
@@ -103,7 +56,6 @@ function scrollActive() {
 }
 
 window.addEventListener("scroll", scrollActive);
-window.addEventListener("load", scrollActive);
 
 navLinks.forEach((link) => {
   link.addEventListener("click", function (e) {
@@ -141,22 +93,6 @@ aboutTabBtns.forEach((btn) => {
 
     const tabId = btn.getAttribute("data-tab");
     document.getElementById(tabId).classList.add("active");
-
-    sr.sync();
-    
-    setTimeout(() => {
-      sr.reveal(".skills-card h3", { delay: 50 });
-      sr.reveal(".skills-category h4", { interval: 100, delay: 150 });
-      sr.reveal(".skill-item", {
-        interval: 30,
-        duration: 800,
-        easing: "ease-out",
-        reset: false,
-        viewFactor: 0.2,
-      });
-      sr.reveal(".project-box", { interval: 200 });
-      sr.reveal(".form-control", { delay: 100 });
-    }, 100);
   });
 });
 

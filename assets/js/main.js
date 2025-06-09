@@ -143,6 +143,20 @@ aboutTabBtns.forEach((btn) => {
     document.getElementById(tabId).classList.add("active");
 
     sr.sync();
+    
+    setTimeout(() => {
+      sr.reveal(".skills-card h3", { delay: 50 });
+      sr.reveal(".skills-category h4", { interval: 100, delay: 150 });
+      sr.reveal(".skill-item", {
+        interval: 30,
+        duration: 800,
+        easing: "ease-out",
+        reset: false,
+        viewFactor: 0.2,
+      });
+      sr.reveal(".project-box", { interval: 200 });
+      sr.reveal(".form-control", { delay: 100 });
+    }, 100);
   });
 });
 

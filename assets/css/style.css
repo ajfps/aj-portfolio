@@ -1254,7 +1254,7 @@ nav{
     gap: 10px;
     width: 100%;
 }
-.input-field{
+.input-field, textarea {
     width: 50%;
     height: 55px;
     background: transparent;
@@ -1262,6 +1262,7 @@ nav{
     border-radius: 10px;
     padding-inline: 20px;
     outline: none;
+    color: #fff !important;
 }
 textarea{
     width: 100%;
@@ -2494,4 +2495,8 @@ footer{
         min-width: unset;
         width: 100%;
     }
+}
+
+a.btn {
+  text-decoration: none !important;
 }

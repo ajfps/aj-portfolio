@@ -59,14 +59,61 @@ document.addEventListener("DOMContentLoaded", () => {
     modalTitle.textContent = title;
     modalDescription.textContent = description;
 
+    // Switch subtitle based on type
+    const modalSubtitle = document.getElementById("modal-tech-or-highlights");
+    if (card.classList.contains("award-item")) {
+      modalSubtitle.textContent = "Highlights";
+    } else {
+      modalSubtitle.textContent = "Tech Stack";
+    }
+
     updateGallery();
 
     modalTags.innerHTML = "";
-    tags.forEach((tag) => {
-      const span = document.createElement("span");
-      span.textContent = tag;
-      modalTags.appendChild(span);
-    });
+    // Only show tags/highlights in modal for projects and awards
+    if (!card.classList.contains("award-item") || (card.classList.contains("award-item") && tags.length > 0)) {
+      tags.forEach((tag) => {
+        const span = document.createElement("span");
+        let iconClass = "";
+        switch(tag.toLowerCase()) {
+          case "react":
+            iconClass = "devicon-react-original colored";
+            break;
+          case "vite":
+            iconClass = "devicon-vitejs-plain colored";
+            break;
+          case "firebase":
+            iconClass = "devicon-firebase-plain colored";
+            break;
+          case "html":
+            iconClass = "devicon-html5-plain colored";
+            break;
+          case "css":
+            iconClass = "devicon-css3-plain colored";
+            break;
+          case "javascript":
+            iconClass = "devicon-javascript-plain colored";
+            break;
+          case "php":
+            iconClass = "devicon-php-plain colored";
+            break;
+          case "mysql":
+            iconClass = "devicon-mysql-plain colored";
+            break;
+          case "webpack":
+            iconClass = "devicon-webpack-plain colored";
+            break;
+        }
+        if (iconClass && !card.classList.contains("award-item")) {
+          const icon = document.createElement("i");
+          icon.className = iconClass;
+          span.appendChild(icon);
+        }
+        span.appendChild(document.createTextNode(" "));
+        span.appendChild(document.createTextNode(tag));
+        modalTags.appendChild(span);
+      });
+    }
 
     modalLiveDemoLink.style.display = "none";
     modalViewCodeLink.style.display = "none";
@@ -91,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
         modalViewCodeLink.href = viewCodeLink;
         modalViewCodeLink.style.display = "inline-block";
       }
-    } else if (status === "private") {
+    } else if (!card.classList.contains("award-item") && status === "private") {
       modalPrivateMessage.style.display = "block";
     }
 
@@ -171,4 +218,46 @@ document.addEventListener("DOMContentLoaded", () => {
       closeModal();
     }
   });
+
+  const contactForm = document.getElementById("contact-form");
+  if (contactForm) {
+    contactForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(contactForm);
+      fetch(contactForm.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("Message sent successfully!");
+          contactForm.reset();
+        } else {
+          alert("Failed to send message. Please try again later.");
+        }
+      })
+      .catch(() => {
+        alert("Failed to send message. Please try again later.");
+      });
+    });
+  }
+
+  // Smooth scroll for 'Hire Me' button with header offset
+  const hireMeBtn = document.querySelector('.btn.blue-btn[href="#contact"]');
+  if (hireMeBtn) {
+    hireMeBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector('#contact');
+      const header = document.getElementById('header');
+      const headerHeight = header ? header.offsetHeight : 0;
+      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    });
+  }
 });
